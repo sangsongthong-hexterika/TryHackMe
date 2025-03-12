@@ -31,7 +31,7 @@ Before I headed to the login site, it was a good idea to check the source code o
 
 Here is the screenshot of the source code. As you can see that the `terminal.js` is an interesting file worth checking so I checked.
 
-![](/Screenshots/THM_GoldenEye_2_viewSourceCode.png)
+![viewSourceCode](/Screenshots/THM_GoldenEye_2_viewSourceCode.png)
 
 I navigated to `terminal.js` and found that someone's name `Boris` need to update his password.
 
@@ -45,11 +45,11 @@ In the screenshot above, there was Boris's encoded password. All I needed to do 
 ***Q3: Whats their password?***
 ***A3: InvincibleHack3r***
 
-Now that I have the credential, it's time for me to login into the website using the username and password I got. 
+Now that I have the credential, it's time for me to login into the website using the username and password I got.
 
 The username was `boris`. I tried with the capital letter `B` and it did not work. The correct username spelled with `b`.
 
-The password was the one I decoded from the source code. 
+The password was the one I decoded from the source code.
 
 ![loginPage](/Screenshots/THM_GoldenEye_4_login.png)
 
@@ -69,7 +69,7 @@ This successful connection told me that I can connect to their POP3 service. I t
 
 I tried to log into Boris's account using the same username and password, but it was not successful. This means I have to find another way in.
 
-The hint told me to use `Hydra` to brute force the login password so I did. 
+The hint told me to use `Hydra` to brute force the login password so I did.
 
 The thing I noticed here was that when facing a situation like this, brute forcing the login password can be a smart step to give it a try.
 
@@ -112,7 +112,7 @@ Went back to take a look at the `target.js` source code, it said `Natalya` could
 ***Q7: What user can break Boris' codes?***
 ***A7: Natalya***
 
-I also got other usernames. 
+I also got other usernames.
 
 ***Keep enumerating users using this service and keep attempting to obtain their passwords via dictionary attacks.***
 ***Hint: You will eventually get a xenia's password in plaintext.***
@@ -135,22 +135,22 @@ I also got an internal domain information from this email to work on next.
 
 ![modifyDNS](/Screenshots/THM_GoldenEye_13_modifyDNS-etc-hosts-file.png)
 
-Q8: Try using the credentials you found earlier. Which user can you login as?
-A8: xenia
+***Q8: Try using the credentials you found earlier. Which user can you login as?***
+***A8: xenia***
 
-Q9: Have a poke around the site. What other user can you find?
-A9: doak
+***Q9: Have a poke around the site. What other user can you find?***
+***A9: doak***
 
-Q10: What was this users password?
-Hint: pop3 + hydra
-A10: goat
+***Q10: What was this users password?***
+***Hint: pop3 + hydra***
+***A10: goat***
 
-Q11: What is the next user you can find from doak?
-Hint: Emails, emails, emails..
-A11: dr_doak
+***Q11: What is the next user you can find from doak?***
+***Hint: Emails, emails, emails..***
+***A11: dr_doak***
 
-*Q12: What is this users password?*
-*A12: 4England!*
+***Q12: What is this users password?***
+***A12: 4England!***
 
 ***Download the attachments and see if there are any hidden messages inside them?***
 ***Hint: Use exiftool***
@@ -162,21 +162,26 @@ A11: dr_doak
 
 ## **Task 4: Privilege Escalation**
 
-Q13: Whats the kernel version?
-Hint: `uname -a`
-A13: 3.13.0-32-generic
+***Q13: Whats the kernel version?***
+***Hint: `uname -a`***
+***A13: 3.13.0-32-generic***
 
 You can download the exploit from here: [exploit](https://www.exploit-db.com/exploits/37292)
 
-Fix the exploit to work with the system you're trying to exploit. Remember, enumeration is your key!
-What development tools are installed on the machine?
+***Fix the exploit to work with the system you're trying to exploit. Remember, enumeration is your key!***
+***What development tools are installed on the machine?***
 
-Getting root
+Getting the root flag. As you can see here, everything inside `/root` directory was hidden. In oder to see them on screen, use `ls -la`.
+
+Now you can see `.flag.txt` file. All you need to do was using `cat` command to see the flag.
+
+The command was `cat <file>`.
+
 ![getRootFlag](/Screenshots/THM_GoldenEye_40_getRootFlag.png)
 
-Q14: What is the root flag?
-Hint: This is located in the root user folder.
-A14: 568628e0d993b1973adc718237da6e93
+***Q14: What is the root flag?***
+***Hint: This is located in the root user folder.***
+***A14: 568628e0d993b1973adc718237da6e93***
 
 ***Bonus Scene: Let's the fangirl in me shine!***
 
