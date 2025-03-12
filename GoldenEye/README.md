@@ -20,7 +20,7 @@ Here is the nmap command I used.
 
 ```sudo nmap -sS -sV -Pn -p- <target_IP> -oA goldenEyeNmapResult -T4```
 
-![nmap Scan](/Screenshots/THM_GoldenEye_1_nmapScan_n_foundLoginPage.png)
+![nmap Scan](Screenshots/THM_GoldenEye_1_nmapScan_n_foundLoginPage.png)
 
 ***Q1: Use nmap to scan the network for all ports. How many ports are open?***
 ***A1: 4***
@@ -31,11 +31,11 @@ Before I headed to the login site, it was a good idea to check the source code o
 
 Here is the screenshot of the source code. As you can see that the `terminal.js` is an interesting file worth checking so I checked.
 
-![viewSourceCode](/Screenshots/THM_GoldenEye_2_viewSourceCode.png)
+![viewSourceCode](Screenshots/THM_GoldenEye_2_viewSourceCode.png)
 
 I navigated to `terminal.js` and found that someone's name `Boris` need to update his password.
 
-![borisNeedsToUpdateHisPassword](/Screenshots/THM_GoldenEye_3_BorisNeedsToUpdatePasswd.png)
+![borisNeedsToUpdateHisPassword](Screenshots/THM_GoldenEye_3_BorisNeedsToUpdatePasswd.png)
 
 ***Q2: Who needs to make sure they update their default password?***
 ***A2: boris***
@@ -51,19 +51,19 @@ The username was `boris`. I tried with the capital letter `B` and it did not wor
 
 The password was the one I decoded from the source code.
 
-![loginPage](/Screenshots/THM_GoldenEye_4_login.png)
+![loginPage](Screenshots/THM_GoldenEye_4_login.png)
 
 ## **Task 2: Its mail time...**
 
 After logining in, I found this. It told us about POP3 service running in the non-default port.
 
-![loginSuccess](/Screenshots/THM_GoldenEye_5_loginSuccessFoundPOP3.png)
+![loginSuccess](Screenshots/THM_GoldenEye_5_loginSuccessFoundPOP3.png)
 
 Re-call back to the `nmap` result, port `55006` and `55007` run POP3 service.
 
 I used `netcat` to check and grab the banner of the POP3 service. The command I use was `nc <target_IP> <non_default_port>`
 
-![POP3-BannerGrabbing](/Screenshots/THM_GoldenEye_6_grabBannerPOP3.png)
+![POP3-BannerGrabbing](Screenshots/THM_GoldenEye_6_grabBannerPOP3.png)
 
 This successful connection told me that I can connect to their POP3 service. I tried testing their commands, but all I got were `user` and `pass`. I tried to user the `user` command to verify users there but it seems to give out `+OK` to everything I typed in after the `user` command. I even tried typing a made-up name or inappropriate word just to trigger `-ERR` flag but it still returned `+OK`. This concluded that I couldn't verify users with the `user` command.
 
@@ -79,7 +79,7 @@ The command was `hydra -l <username> -P <wordlist-text-file> <target_IP> -s <por
 
 `hydra l boris -P /usr/share/wordlists/fasttrack.txt <target_IP> -s 55007 pop3`
 
-![hydraBoris](/Screenshots/THM_GoldenEye_7_borisPOP3Pass.png)
+![hydraBoris](Screenshots/THM_GoldenEye_7_borisPOP3Pass.png)
 
 ***Q4: If those creds don't seem to work, can you use another program to find other users and passwords? Maybe Hydra?Whats their new password?***
 ***Hint: POP3***
@@ -97,7 +97,7 @@ POP3 is an email service.
 
 Using the password obtaining from using `hydra` to brute force, I was able to login as shown in the screenshot below.
 
-![loginAsBorisPOP3](/Screenshots/THM_GoldenEye_8_loginAsBorisPOP3.png)
+![loginAsBorisPOP3](Screenshots/THM_GoldenEye_8_loginAsBorisPOP3.png)
 
 Since I was not familiar with POP3 commands, I googled POP3 commands and found `retr <number_of_the_email>` and `list` to be useful commands.
 
@@ -107,7 +107,7 @@ Since I was not familiar with POP3 commands, I googled POP3 commands and found `
 
 Went back to take a look at the `target.js` source code, it said `Natalya` could break `Boris` code. In one of the emails, this was re-stated again.
 
-![borisEmail2and3](/Screenshots/THM_GoldenEye_9_borisEmail2and3.png)
+![borisEmail2and3](Screenshots/THM_GoldenEye_9_borisEmail2and3.png)
 
 ***Q7: What user can break Boris' codes?***
 ***A7: Natalya***
@@ -119,21 +119,21 @@ I also got other usernames.
 
 Repeated the same password brute force method using `hydra` with the new user that I found, `Natalya`.
 
-![natalyaPOP3Passwd](/Screenshots/THM_GoldenEye_10_natalyaPOP3Pass.png)
+![natalyaPOP3Passwd](Screenshots/THM_GoldenEye_10_natalyaPOP3Pass.png)
 
 Login using `natalya` and read her emails.
 
-![natalyaPOP3Email1](/Screenshots/THM_GoldenEye_11_natalyaPOP3LoginEmail1.png)
+![natalyaPOP3Email1](Screenshots/THM_GoldenEye_11_natalyaPOP3LoginEmail1.png)
 
 I read her email 2 and got `Xenia`'s password in clear text.
 
-![xeniaPasswd](/Screenshots/THM_GoldenEye_12_natalyaPOP3LoginEmail2AndXeniaPass.png)
+![xeniaPasswd](Screenshots/THM_GoldenEye_12_natalyaPOP3LoginEmail2AndXeniaPass.png)
 
 I also got an internal domain information from this email to work on next.
 
 ## **Task 3: GoldenEye Operators Training**
 
-![modifyDNS](/Screenshots/THM_GoldenEye_13_modifyDNS-etc-hosts-file.png)
+![modifyDNS](Screenshots/THM_GoldenEye_13_modifyDNS-etc-hosts-file.png)
 
 ***Q8: Try using the credentials you found earlier. Which user can you login as?***
 ***A8: xenia***
@@ -177,7 +177,7 @@ Now you can see `.flag.txt` file. All you need to do was using `cat` command to 
 
 The command was `cat <file>`.
 
-![getRootFlag](/Screenshots/THM_GoldenEye_40_getRootFlag.png)
+![getRootFlag](Screenshots/THM_GoldenEye_40_getRootFlag.png)
 
 ***Q14: What is the root flag?***
 ***Hint: This is located in the root user folder.***
@@ -185,4 +185,10 @@ The command was `cat <file>`.
 
 ***Bonus Scene: Let's the fangirl in me shine!***
 
-![bonus](/Screenshots/THM_GoldenEye_41_bonus.png)
+![bonus](Screenshots/THM_GoldenEye_41_bonus.png)
+
+![roomCompletion](Screenshots/THM_GoldenEye_42_roomCompletion.png)
+
+Thank you so much for reading this till the end.
+
+***Sangsongthong***
