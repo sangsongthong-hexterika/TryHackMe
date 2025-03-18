@@ -361,6 +361,8 @@ The command was `cat <file>`.
 
 Thank you so much for reading this till the end.
 
-***Sangsongthong - Hexterika Cyber Lab***
+***Sangsongthong***
+| ***Hexterika Cyber Lab***
+| ***Founder, CEO, and Sole Worker***
 
 <!--The image path shouldn't have / in front of Screenshots.I made a mistake by typing /Screenshots instead of Screenshots making the images not display properly on GitHub even though I can see them on the preview on my local machine. This comment is invisible, by the way.-->
