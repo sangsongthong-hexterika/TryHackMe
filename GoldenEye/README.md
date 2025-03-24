@@ -37,6 +37,10 @@ I navigated to `terminal.js` and found that someone's name `Boris` need to updat
 
 ![borisNeedsToUpdateHisPassword](Screenshots/THM_GoldenEye_3_BorisNeedsToUpdatePasswd.png)
 
+Boris's password was easily cracked using Burp Suite's smart decoder.
+
+![crackBorisPasswdWithBurpDecoder](Screenshots/THM_goldenEye_3.1_crackBorisPasswdWithBurpDecoder.png)
+
 ***Q2: Who needs to make sure they update their default password?***
 ***A2: boris***
 
