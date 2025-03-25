@@ -9,8 +9,8 @@ Sangsongthong
 
 ## Reach Me
 
-[LinkedIn](https://www.linkedin.com/in/sangsongthong-chantaranothai/) \
+[LinkedIn](https://www.linkedin.com/in/sangsongthong-chantaranothai/)  
 
-[Facebook](https://www.facebook.com/share/162kohswBD/?mibextid=qi2Omg) \
+[Facebook](https://www.facebook.com/share/162kohswBD/?mibextid=qi2Omg)  
 
-[Instagram](https://www.instagram.com/hexterika.cyberlab?igsh=cTRoaGxmNGxrcmMz) \
+[Instagram](https://www.instagram.com/hexterika.cyberlab?igsh=cTRoaGxmNGxrcmMz)  
