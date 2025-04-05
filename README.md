@@ -3,9 +3,11 @@
 This repo contains all walkthrough of TryHackMe rooms that I have completed.
 Each rooms will have its separated README.md file and its related files specific to that room such as screenshots, exploits, etc.
 
-## Cheers
+Cheers,
+**Sangsongthong**
 
-Sangsongthong
++ | Hexterika Cyberlab
++ | Founder, CEO, and Sole Worker
 
 ## Reach Me
 
@@ -14,3 +16,5 @@ Sangsongthong
 [Facebook](https://www.facebook.com/share/162kohswBD/?mibextid=qi2Omg)  
 
 [Instagram](https://www.instagram.com/hexterika.cyberlab?igsh=cTRoaGxmNGxrcmMz)  
+
+[TryHackMe](https://tryhackme.com/p/gexter5thm)
