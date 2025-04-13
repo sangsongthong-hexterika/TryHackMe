@@ -365,8 +365,15 @@ The command was `cat <file>`.
 
 Thank you so much for reading this till the end.
 
-***Sangsongthong***
-| ***Hexterika Cyber Lab***
-| ***Founder, CEO, and Sole Worker***
+---
 
-<!--The image path shouldn't have / in front of Screenshots.I made a mistake by typing /Screenshots instead of Screenshots making the images not display properly on GitHub even though I can see them on the preview on my local machine. This comment is invisible, by the way.-->
+**Author & Publisher:** Sangsongthong Chantaranothai  
+**Published under:** Hexterika Cyberlab, a cybersecurity branch of Hexterika Breaks Free  
+**Date Published:** March 15, 2025
+*(Based on the commit where the full walkthrough was completed. Later commits are minor edits or additions.)*
+**Purpose:** Created as part of ongoing professional development to earn CEU/CPE credits for CompTIA and ISC2 certifications. Also intended to showcase cybersecurity skills, support Hexterika Cyberlab's portfolio, and demonstrate project quality to future clients and employers.
+
+🔐 Part of the **Hexterika Cyberlab** project series  
+📎 Website coming soon at **Hexterika Breaks Free**
+
+<!--The image path shouldn't have / in front of Screenshots. I made a mistake by typing /Screenshots instead of Screenshots making the images not display properly on GitHub even though I can see them on the preview on my local machine. This comment is invisible, by the way.-->
