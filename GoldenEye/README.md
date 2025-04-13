@@ -367,11 +367,14 @@ Thank you so much for reading this till the end.
 
 ---
 
-**Author & Publisher:** Sangsongthong Chantaranothai  
-**Published under:** Hexterika Cyberlab, a cybersecurity branch of Hexterika Breaks Free  
+**Author & Publisher:** Sangsongthong Chantaranothai
+
 **Date Published:** March 15, 2025
 *(Based on the commit where the full walkthrough was completed. Later commits are minor edits or additions.)*
+
 **Purpose:** Created as part of ongoing professional development to earn CEU/CPE credits for CompTIA and ISC2 certifications. Also intended to showcase cybersecurity skills, support Hexterika Cyberlab's portfolio, and demonstrate project quality to future clients and employers.
+
+***Published as part of Hexterika Cyberlab, the cybersecurity division of Hexterika Breaks Free.***
 
 🔐 Part of the **Hexterika Cyberlab** project series  
 📎 Website coming soon at **Hexterika Breaks Free**
